@@ -1,0 +1,72 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        target: wasm32-unknown-unknown
+        override: true
+    
+    - name: Install wasm-pack
+      run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    
+    - name: Build WASM
+      run: wasm-pack build --target web
+    
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    
+    - name: Create placeholder icons
+      run: |
+        # Create simple placeholder icons using ImageMagick (available in Ubuntu)
+        sudo apt-get update
+        sudo apt-get install -y imagemagick
+        
+        # Create 192x192 icon
+        convert -size 192x192 xc:"#007bff" \
+                -fill white -draw "polygon 72,72 144,96 72,120" \
+                -fill white -draw "circle 96,96 96,104" \
+                icon-192.png
+        
+        # Create 512x512 icon  
+        convert -size 512x512 xc:"#007bff" \
+                -fill white -draw "polygon 192,192 384,256 192,320" \
+                -fill white -draw "circle 256,256 256,277" \
+                icon-512.png
+    
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

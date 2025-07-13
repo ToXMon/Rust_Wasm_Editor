@@ -1,0 +1,23 @@
+{
+  "name": "wasm-video-editor",
+  "version": "1.0.0",
+  "description": "A Rust WebAssembly video editor for the browser",
+  "main": "index.js",
+  "scripts": {
+    "build": "wasm-pack build --target web",
+    "serve": "python3 -m http.server 8080",
+    "dev": "npm run build && npm run serve"
+  },
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "rust",
+    "video",
+    "editor"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "wasm-pack": "^0.12.0"
+  }
+}
