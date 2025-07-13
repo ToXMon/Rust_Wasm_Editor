@@ -98,7 +98,7 @@ async function getTrimSuggestions(frames) {
     return data.suggestions;
 }
 
-function markScenesOnTimeline(scenes) {
+function markScenesOnTimeline(scenes, duration) {
     const timelineBar = document.querySelector('.timeline-bar');
 
     scenes.forEach(scene => {

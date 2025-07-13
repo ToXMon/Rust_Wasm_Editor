@@ -175,6 +175,9 @@
 <body>
     <div class="container">
         <h1>VideoFlow - AI Video Editor</h1>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="performance.html" style="display: inline-block; padding: 10px 20px; background: #00ff88; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold;">🚀 View Performance Stats</a>
+        </div>
         
         <div class="video-container">
             <div class="video-section">
@@ -315,12 +318,13 @@
                     const scenes = await detectScenes(frames);
                     
                     if (scenes && scenes.length > 0) {
-                        markScenesOnTimeline(scenes);
+                        markScenesOnTimeline(scenes, sourceVideo.duration);
                         outputContent.textContent = `✅ Found ${scenes.length} scene changes! Red markers show detected scenes.`;
                     } else {
                         outputContent.textContent = '❌ No significant scene changes detected.';
                     }
                 } catch (error) {
+                    console.error('Error during scene detection:', error);
                     outputContent.textContent = `❌ Error during scene detection: ${error.message}`;
                 }
             });
@@ -340,6 +344,7 @@
                         outputContent.textContent = '❌ No trim suggestions generated.';
                     }
                 } catch (error) {
+                    console.error('Error generating suggestions:', error);
                     outputContent.textContent = `❌ Error generating suggestions: ${error.message}`;
                 }
             });
