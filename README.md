@@ -4,7 +4,7 @@
 
 ## 🚀 Live Demo
 
-Try the app live at: [[https://YOUR_USERNAME.github.io/wasm_video_editor]](https://toxmon.github.io/Rust_Wasm_Editor/)
+Try the app live at: [[https://toxmon.github.io/Rust_Wasm_Editor/]](https://toxmon.github.io/Rust_Wasm_Editor/)
 
 ## ✨ Features
 
