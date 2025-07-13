@@ -39,23 +39,15 @@ jobs:
       with:
         enablement: true
     
-    - name: Create placeholder icons
+    - name: Setup PWA icons
       run: |
-        # Create simple placeholder icons using ImageMagick (available in Ubuntu)
-        sudo apt-get update
-        sudo apt-get install -y imagemagick
+        # Copy existing icons to expected PWA names
+        cp icon-192-2.png icon-192.png
+        cp icon-512-2.png icon-512.png
         
-        # Create 192x192 icon
-        convert -size 192x192 xc:"#007bff" \
-                -fill white -draw "polygon 72,72 144,96 72,120" \
-                -fill white -draw "circle 96,96 96,104" \
-                icon-192.png
-        
-        # Create 512x512 icon  
-        convert -size 512x512 xc:"#007bff" \
-                -fill white -draw "polygon 192,192 384,256 192,320" \
-                -fill white -draw "circle 256,256 256,277" \
-                icon-512.png
+        # Verify the icons are available
+        ls -la icon-*.png
+        echo "PWA icons ready for deployment"
     
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
