@@ -4,15 +4,8 @@ use web_sys::{console, Document, HtmlElement};
 
 #[wasm_bindgen(start)]
 pub fn start() {
-    console::log_1(&"Hello from wasm-bindgen!".into());
-    let window = web_sys::window().expect("no global window");
-    let document = window.document().expect("should have a document");
-    let body = document.body().expect("document should have a body");
-
-    let val = document.create_element("p").expect("Failed to create element");
-    val.set_inner_html("Hello from wasm!");
-
-    body.append_child(&val).expect("Failed to append child");
+    console::log_1(&"VideoFlow WASM module initialized".into());
+    // WASM module is now ready for video processing
 }
 
 #[wasm_bindgen]
